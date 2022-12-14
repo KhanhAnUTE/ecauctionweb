@@ -5,14 +5,21 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon --inspect src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind:css": "npx tailwindcss -i src/public/css/tailwind.css -o src/public/css/tailwind_style.css --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "autoprefixer": "^10.4.13",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
 }
