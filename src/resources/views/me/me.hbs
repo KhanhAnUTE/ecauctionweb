@@ -1,0 +1,64 @@
+<!-- Shop Start -->
+<div class="container-fluid pt-4">
+    <div class="row">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-12">
+            <div class="card mb-4 border-0 bg-secondary pl-4">
+                <div class="card-body bg-white" style="display: flex; flex-direction: column !important;">
+                    <div class="flex mb-4">
+                        {{#if me.avatar}}
+                        <img src="{{me.avatar}}" alt="avatar" class="rounded-circle img-fluid"
+                            style="width: 70px; height: 70px; object-fit: cover">
+                        {{else}}
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 70px; height: 70px">
+                        {{/if}}
+                        <h5 class="ml-0 mt-2">{{me.name}}</h5>
+                    </div>
+                    <a href="./info" class="text-muted mb-1 block"><i class="fas fa-user mr-2"></i>Thông tin</a>
+                    <a href="./my-order" class="text-muted mb-1 block"><i class="fas fa-shopping-cart mr-2"></i>Đơn
+                        hàng</a>
+                    <a href="./my-shop" class="text-muted mb-1 block"><i class="fa fa-shopping-bag mr-2" aria-hidden="true"></i></i>Cửa hàng của tôi</a>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Sidebar End -->
+        {{#if info}}
+            {{>me/info}}
+        {{/if}}
+        {{#if myshop}}
+            {{>me/myshop}}
+        {{/if}}
+    </div>
+</div>
+<!-- Shop End -->
+
+{{#if info}}
+<script>
+    function clearMessage(){
+        $('#message-info').html('')
+    }
+    document.addEventListener('DOMContentLoaded', (event)=>{
+        $('#btn-save-changes').click(function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: $('#info-form').serialize(),
+                success: function(res){
+                    if (res.status){
+                        $('#message-info').html('<i class="fa fa-check" aria-hidden="true" style="margin-right:5px"></i>' + res.message)
+                        $('#message-info').addClass('success-text')
+                        $('#message-info').removeClass('error-text')
+                    }
+                    else{
+                        $('#message-info').html('<i class="fa fa-times" aria-hidden="true" style="margin-right:5px"></i>' + res.message)
+                        $('#message-info').addClass('error-text')
+                        $('#message-info').removeClass('success-text')
+                    }
+                }
+            })
+        })
+    })
+</script>
+{{/if}}
