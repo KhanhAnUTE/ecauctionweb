@@ -1,0 +1,95 @@
+<head>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<div class="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block">
+                            <div id="message-info" class="error-text">
+                            </div>
+                            <div class="mb-4">
+                                <h3>Đăng ký tài khoản</h3>
+                            </div>
+                            <form action="" method="POST" id="login-form">
+                                <div class="form-group first">
+                                    <label for="username">Email</label>
+                                    <input type="email" class="form-control" id="username" name="email" required>
+                                </div>
+                                <div class="form-group last mid mb-4">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" name="password">
+                                </div>
+
+                                <div class="form-group last mb-4" style="margin-bottom: 2rem !important;">
+                                    <label for="password">Nhập lại mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" name="reTypePassword"
+                                        required>
+                                </div>
+
+                                <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Đồng ý với các
+                                            <a href="" style="font-weight: bold;">điều khoản</a> của chúng tôi</span>
+                                        <input name="isAgreeChecked" type="checkbox" checked="checked"
+                                            id="remember-checkbox" onclick="displayCheckboxIcon()" />
+                                        <div class="control__indicator">
+                                            <i class="fa fa-check check-box-icon" aria-hidden="true"
+                                                style="align-items: center;" id="remember-checkbox-icon"></i>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <input type="submit" value="Đăng ký"
+                                    class="btn btn-pill text-white btn-block btn-primary" id="btn-login">
+
+
+                                <div style="margin-top: 3rem">Bạn đã có tài khoản? <a style="font-weight: bold;"
+                                        href="./login">Đăng nhập ngay</a></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', (event) => {
+        $('#btn-login').click(function (event) {
+            console.log(1)
+            event.preventDefault()
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: $('#login-form').serialize(),
+                success: function (res) {
+                    if (res) {
+                        $('#message-info').html('<i class="fa fa-times" aria-hidden="true" style="margin-right:5px"></i>' + res)
+                    }
+                    else {
+                        window.location.href = '/home'
+                    }
+                }
+            })
+        })
+
+    })
+    function displayCheckboxIcon() {
+        var rememberCheckbox = document.getElementById('remember-checkbox')
+        var checkboxIcon = document.getElementById('remember-checkbox-icon')
+        if (rememberCheckbox.checked)
+            checkboxIcon.style.display = 'block'
+        else
+            checkboxIcon.style.display = 'none'
+    }
+
+</script>
+
+<script src="../js/login/jquery-3.3.1.min.js"></script>
+<script src="../js/login/popper.min.js"></script>
+<script src="../js/login/bootstrap.min.js"></script>
+<script src="../js/login/main.js"></script>

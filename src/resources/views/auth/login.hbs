@@ -1,0 +1,106 @@
+<head>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<div class="content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block">
+                            <div id="message-info" class="error-text">
+                            </div>
+                            <div class="mb-4">
+                                <h3>Đăng nhập</h3>
+                            </div>
+                            <form action="" method="POST" id="login-form">
+                                <div class="form-group first">
+                                    <label for="username">Email</label>
+                                    <input type="email" class="form-control" id="username" name="email" value="{{user.email}}" required>
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="password" name="password" value="{{user.password}}">
+                                </div>
+
+                                <div class="d-flex mb-5 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Nhớ mật
+                                            khẩu</span>
+                                        <input name="isRememberChecked" type="checkbox" checked="checked" id="remember-checkbox" onclick="displayCheckboxIcon()"/>
+                                        <div class="control__indicator">
+                                            <i class="fa fa-check check-box-icon" aria-hidden="true" style="align-items: center;" id="remember-checkbox-icon"></i>
+                                        </div>
+                                    </label>
+                                    <span class="ml-auto"><a href="#" class="forgot-pass">Quên mật khẩu</a></span>
+                                </div>
+
+                                <input type="submit" value="Đăng nhập"
+                                    class="btn btn-pill text-white btn-block btn-primary" id="btn-login">
+
+                                <span class="d-block text-center my-4 text-muted">Đăng nhập với</span>
+
+                                <div class="social-login text-center">
+                                    <a href="#" class="facebook">
+                                        <span class="fa fa-facebook mr-3"></span>
+                                    </a>
+                                    <a href="#" class="google">
+                                        <span class="fa fa-google mr-3"></span>
+                                    </a>
+                                </div>
+                            </form>
+                            <div> <a href="./signup">Đăng ký</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', (event)=>{
+        var inputEmail = $('input[name=email]')
+		var inputPassword = $('input[name=password]')
+        var divEmail = $('.form-group.first')
+        var divPassword = $('.form-group.last')
+
+        if (inputEmail.val())
+            divEmail.addClass('field--not-empty')
+        if (inputPassword.val())
+            divPassword.addClass('field--not-empty')
+        
+
+        $('#btn-login').click(function(event){
+            event.preventDefault()
+            $.ajax({
+                url: '',
+                method: 'post',
+                data: $('#login-form').serialize(),
+                success: function(res){
+                    if (res){
+                        $('#message-info').html('<i class="fa fa-times" aria-hidden="true" style="margin-right:5px"></i>' + res)
+                    }
+                    else{
+                        window.location.href = '/home'
+                    }
+                }
+            })
+        })
+
+    })
+    function displayCheckboxIcon(){
+        var rememberCheckbox = document.getElementById('remember-checkbox')
+        var checkboxIcon = document.getElementById('remember-checkbox-icon')
+        if (rememberCheckbox.checked)
+            checkboxIcon.style.display = 'block'
+        else
+            checkboxIcon.style.display = 'none' 
+    }
+
+</script>
+
+<script src="../js/login/jquery-3.3.1.min.js"></script>
+<script src="../js/login/popper.min.js"></script>
+<script src="../js/login/bootstrap.min.js"></script>
+<script src="../js/login/main.js"></script>
