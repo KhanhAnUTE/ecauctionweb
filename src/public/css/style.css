@@ -306,3 +306,17 @@ footer .form__field {
     border: none;
 }
 
+
+span.special-tag{
+    padding: 3px 10px;
+    background-color: #dc3545;
+    color: white;
+    position: absolute;
+    top: 5px;
+    left: 20px;
+}
+
+.check-box{
+    margin-top: 0;
+    font-size: 20px;
+}

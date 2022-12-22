@@ -12,5 +12,6 @@ router.get('/delete-shop', meController.deleteShop)
 router.post('/info', meController.saveInfo)
 router.post('/get-categories', meController.getCategories)
 router.post('/add-shop', meController.postAddShop)
+router.post('/edit-shop', meController.postEditShop)
 
 module.exports = router

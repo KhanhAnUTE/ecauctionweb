@@ -7,7 +7,8 @@ class HomeController {
         var user = req.session.user
         res.render('home', {
             title: "Trang chủ",
-            user
+            user,
+            homePage: true,
         })
     }
 }

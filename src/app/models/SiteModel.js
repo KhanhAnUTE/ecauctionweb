@@ -17,6 +17,11 @@ Sites.getCategoriesByParent = (parent_id) =>{
      return db.execute(sql, [parent_id])
 }
 
+Sites.getAllCategories = ()=>{
+     var sql = "select * from categories"
+     return db.execute(sql)
+}
+
 //Images
 Sites.getImagesByProductId = (product_id) => {
      var sql = "select * from images where product_id = ?"

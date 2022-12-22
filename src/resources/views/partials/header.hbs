@@ -42,13 +42,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="/home" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/shop" class="nav-item nav-link">Cửa Hàng</a>
+                        <a href="/home" class="nav-item nav-link {{#if homePage}}active{{/if}}">Trang Chủ</a>
+                        <a href="/shop" class="nav-item nav-link {{#if shopPage}}active{{/if}}">Cửa Hàng</a>
 
-                        <a href="/me/info" class="nav-item nav-link">Thông Tin</a>
+                        <a href="/me/info" class="nav-item nav-link {{#if homePage}}active{{/if}}">Thông Tin</a>
 
 
-                        <a href="/contact" class="nav-item nav-link">Liên Hệ</a>
+                        <a href="/contact" class="nav-item nav-link {{#if contactPage}}active{{/if}}">Liên Hệ</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a href="/receipt" class="btn px-0 ml-3">
@@ -71,15 +71,23 @@
                         {{#if mePage}}
                         <a class="nav-item nav-link text-center" href="../auth/logout" style="padding-top: 0;">Đăng xuất</a>
                         {{else}}
+                        {{#if detailPage}}
+                        <a class="nav-item nav-link text-center" href="../auth/logout" style="padding-top: 0;">Đăng xuất</a>
+                        {{else}}
                         <a class="nav-item nav-link text-center" href="auth/logout" style="padding-top: 0;">Đăng xuất</a>
-                        {{/if}}
+                        {{/if}}{{/if}}
 
                         {{else}}
                         {{#if loginPage}}
                         <a class="nav-item nav-link" href="./login">
                         {{else}}
+                        {{#if detailPage}}
+                        <a class="nav-item nav-link" href="../auth/login">
+                        {{else}}
                         <a class="nav-item nav-link" href="auth/login">
                         {{/if}}
+                        {{/if}}
+                        
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                             <p style="color:white; display: inline;">Đăng nhập</p>
                         </a>

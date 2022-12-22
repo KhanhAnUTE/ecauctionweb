@@ -17,6 +17,7 @@
           </select>
         </div>
 
+          <input value="{{product.product_id}}" class="form-control" type="text" name="product_id" style="display: none;"/>
         <div class="col-md-6 form-group">
           <label>Tên sản phẩm</label>
           <input value="{{product.product}}" class="form-control" type="text" name="product" required/>
@@ -38,6 +39,7 @@
           {{#each images}}
           <label>Ảnh</label>
           <input class="form-control" type="text" name="link[]" value="{{this.link}}" style="margin-bottom: 5px" required/>
+          <input class="form-control" type="text" name="imagesId[]" value="{{this.img_id}}" style="margin-bottom: 5px; display: none" />
           {{/each}}
         </div>
         <input type="text" name="imagesCount" value="{{imagesCount}}" style="display: none;"/>
@@ -49,7 +51,7 @@
 
         <div class="form-group pl-3 pr-3" style="width: 100% !important;">
           <label>Mô tả sản phẩm</label><br />
-          <textarea name="desciption" class="form-control" placeholder="Mô tả sản phẩm" required>{{product.description}}</textarea>
+          <textarea name="description" class="form-control" placeholder="Mô tả sản phẩm" required>{{product.description}}</textarea>
         </div>
         <div class="col-md-6 form-group">
           <button class="btn btn-primary font-weight-bold py-2" style="color: white !important;" type="submit">Lưu lại</button>

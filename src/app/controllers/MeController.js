@@ -166,6 +166,20 @@ class MeController{
         }
     }
 
+    //POST me/edit-shop
+    postEditShop(req, res){
+        if (!req.session.user)
+            res.redirect("../auth/login")
+        else{
+            var product = new Products(req.body)
+            Products.updateProduct(product)
+                .then((result)=>{
+                    res.redirect("back")
+                })
+                .catch(err => res.send(err))
+        }
+    }
+
     //GET me/delete-shop
     deleteShop(req, res){
         if (!req.session.user)

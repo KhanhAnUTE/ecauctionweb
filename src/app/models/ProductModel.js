@@ -23,6 +23,18 @@ Products.insert = (product) =>{
      return db.execute(sql, [product.category_id, product.owner_id, product.product, product.price, product.qty_in_stock, product.description, product.slug, product.finishAt, product.is_expired])
 }
 
+Products.getAllProducts = (filter) =>{
+     var sql = "select * from products, images where products.product_id = images.product_id and isdefault = 1"
+     if (filter){
+          if ('categoriesId' in filter){
+               var f = filter.categoriesId.join(',')
+               sql += ` and category_id in (${f})`
+          }
+     }
+     
+     return db.execute(sql) 
+}
+
 Products.getShopProducts = (user_id)=>{
      var sql = "select * from products, images where products.product_id = images.product_id and owner_id = ? and images.isdefault = 1"
      return db.execute(sql, [user_id])
@@ -36,6 +48,12 @@ Products.getProductById = (product_id)=>{
 Products.deteleShopProduct = (user_id, product_id)=>{
      var sql = "delete from products where owner_id = ? and product_id = ?"
      return db.execute(sql, [user_id, product_id])
+}
+
+Products.updateProduct = (product) =>{
+     var sql = `update products set category_id = ?, product = ?, price = ?, description = ?, finishAt = ? where product_id = ?`
+
+     return db.execute(sql, [product.category_id, product.product, product.price, product.description, product.finishAt, product.product_id])
 }
 
 module.exports = Products
