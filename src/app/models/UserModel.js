@@ -15,7 +15,7 @@ const Users = function(user){
     this.street = user.street || ''
 
     this.checkLoginValid = () => {
-        return (this.email && this.password.length > 8)
+        return (this.email && this.password.length >= 8)
     }
 }
 

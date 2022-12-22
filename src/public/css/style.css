@@ -295,3 +295,14 @@ footer .form__field {
     color: #38d39f;
     margin: 5px 0px 5px 0px;
 }
+
+.bg-important{
+    background-color: #dc3545 !important;
+    border: none;
+}
+
+.bg-safe{
+    background-color: #38d39f !important;
+    border: none;
+}
+

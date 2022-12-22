@@ -1,0 +1,115 @@
+<!-- Checkout Start -->
+<div class="col-lg-9 col-md-12">
+  <div class="bg-light p-30 mb-5">
+    <form action="" method="POST">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label>Danh Mục</label>
+          <select class="form-control" name="parent_id" id="parent_id" required> 
+               <option value="">--Chọn Danh Mục--</option>
+               {{#each parent_categories}}
+                    <option value="{{this.parent_id}}">{{this.parent_category}}</option>
+               {{/each}}
+          </select>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label>Tên sản phẩm</label>
+          <input class="form-control" type="text" name="product" required/>
+        </div>
+
+        <div class="col-md-6 form-group" id="categories">
+          <label>Danh Mục sản phẩm</label>
+          <select class="form-control" name="category_id" disabled required> 
+               <option value="">--Chọn Danh Mục--</option>
+          </select  >
+        </div>
+        
+        <div class="col-md-6 form-group">
+          <label>Giá niêm yết</label>
+          <input class="form-control" type="number" name="price" required/>
+        </div>
+
+        <div class="col-md-6 form-group" id="images">
+          <label>Ảnh</label>
+          <input class="form-control" type="text" name="link[]" required/>
+        </div>
+        <input type="text" name="imagesCount" value="1" style="display: none;"/>
+
+        <div class="col-md-6 form-group">
+          <label>Ngày kết thúc</label><br />
+          <input type="date" name="finshAt" class="form-control" required>
+        </div>
+
+        <div class="form-group pl-3 pr-3" style="width: 100% !important;">
+          <label>Mô tả sản phẩm</label><br />
+          <textarea name="desciption" class="form-control" placeholder="Mô tả sản phẩm" required></textarea>
+        </div>
+        <div class="col-md-6 form-group">
+          <button class="btn btn-primary font-weight-bold py-2" style="color: white !important;" type="submit">Thêm sản phẩm</button>
+          <button class="btn btn-primary font-weight-bold py-2" style="color: white !important;" id="add-image">Thêm ảnh</button>
+        </div>
+        
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Checkout End -->
+
+<script>
+     document.addEventListener('DOMContentLoaded', (event)=>{
+          $('#parent_id').change((event) => {
+               var parent_id = $('#parent_id').val()
+               $.ajax({
+                    url: './get-categories',
+                    method: 'post',
+                    data: {parent_id},
+                    success: function(categories){
+                         var htmlText = `<label>Danh Mục sản phẩm</label>`
+                         if (categories)
+                              htmlText += `<select class="form-control" name="category_id" required>`
+                         else
+                              htmlText += `<select class="form-control" name="category_id" disabled required>`
+                         htmlText += `<option value="">--Chọn Danh Mục--</option>`
+                              
+                         for (var i = 0; i < categories.length; i++){
+                              htmlText += `<option value="${categories[i].category_id}">${categories[i].category}</option>`
+                         }
+                         htmlText +=    `</select  >
+                                   </div>`
+                         $('#categories').html(htmlText)
+                    }
+               })
+          })
+
+          var imagesCount = 1
+          $('#add-image').click((event)=>{
+               var htmlText = $('#images').html()
+
+               event.preventDefault()
+               imagesCount += 1
+               console.log(imagesCount)
+               if (imagesCount >= 5) imagesCount = 5
+
+               htmlText += `<label style="margin-top:4px">Ảnh ${imagesCount}</label>
+                    <input class="form-control" type="text" name="link[]">`
+
+               $('#images').html(htmlText)
+               
+               $('input[name="imagesCount"]').attr({"value": imagesCount})
+               console.log($('input[name="imagesCount"]'))
+               
+          })
+
+          var today = new Date().toJSON().slice(0, 10)
+          var maxDate = new Date()
+          maxDate.setDate(maxDate.getDate() + 60)
+          maxDate = maxDate.toJSON().slice(0, 10)
+
+          $('input[name="finshAt"]').attr({
+               "min": today.toString(),
+               "max": maxDate.toString()
+          }).val(today.toString())
+
+     })
+</script>

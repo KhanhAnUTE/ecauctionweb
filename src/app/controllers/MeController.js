@@ -1,4 +1,6 @@
 const Users = require('../models/UserModel')
+const Sites = require('../models/SiteModel')
+const Products = require('../models/ProductModel')
 
 class MeController{
 
@@ -13,6 +15,8 @@ class MeController{
                         title: "Thông tin cá nhân",
                         me: userResult,
                         info: true,
+                        user: req.session.user,
+                        mePage: true,
                     })
                 })
                 .catch(err => res.send(err))
@@ -62,14 +66,76 @@ class MeController{
         if (!req.session.user)
             res.redirect('../auth/login')
         else{
-            res.render('me/me', {
-                title: "Cửa hàng của tôi",
-                myshop: true,
-            })
+            var user_id = req.session.user.user_id
+            // Users.getUserById(user_id)
+            //     .then(([[userResult]]) => {
+            //         res.send(userResult)
+            //     })
+            Promise.all([Products.getShopProducts(user_id), Users.getUserById(user_id)])
+                .then(([products , me])=>{
+                    res.render('me/me', {
+                        title: "Cửa hàng của tôi",
+                        myshop: true,
+                        products: products[0],
+                        me: me[0][0],
+                        user: req.session.user,
+                        mePage: true,
+                    })
+                })
         }
     }
 
-   
+    //GET /me/add-shop
+    addShop(req, res){
+        if (!req.session.user) 
+            res.redirect('../auth/login')
+        else{
+            Sites.getParentCategories()
+                .then(([parent_categories]) => {
+
+                    res.render('me/me', {
+                        title: "Đăng sản phẩm",
+                        addShop: true,
+                        parent_categories,
+                        user: req.session.user,
+                        mePage: true,
+                    })
+                })
+                .catch(err => res.send(err))
+        }
+    }
+
+    //POST /me/add-shop
+    postAddShop(req, res){
+        var product = new Products(req.body)
+        if (!req.session.user)
+            res.redirect('../auth/login')
+        else{
+            product.owner_id = req.session.user.user_id
+            
+            Products.insert(product)
+            .then(([result]) =>{
+                Sites.uploadImages(req.body["link[]"], req.body.imagesCount, result.insertId)
+                .then((flag)=>{
+                    res.redirect('./my-shop')
+                })
+            })
+            .catch(err => res.send(err))
+        }
+    }
+    
+    //POST me/get-categories
+    getCategories(req, res){
+        var parent_id = req.body.parent_id
+        if (!parent_id)
+            res.send(null)
+        else
+            Sites.getCategoriesByParent(parent_id)
+                .then(([categories])=>{
+                    res.send(categories)
+                })
+                .catch(err => res.status(400).send(err))
+    }
 }
 
 module.exports = new MeController()

@@ -68,7 +68,11 @@
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                             <p style="color:white; display: inline;">{{user.name}}</p>
                         </a>
+                        {{#if mePage}}
+                        <a class="nav-item nav-link text-center" href="../auth/logout" style="padding-top: 0;">Đăng xuất</a>
+                        {{else}}
                         <a class="nav-item nav-link text-center" href="auth/logout" style="padding-top: 0;">Đăng xuất</a>
+                        {{/if}}
 
                         {{else}}
                         {{#if loginPage}}

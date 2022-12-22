@@ -1,46 +1,51 @@
-<!-- Myshop Start -->
-<!-- Shop Product Start -->
-<div class="col-lg-9 col-md-12">
-    <div class="row pb-3 bg-white p-2" style="display: block; text-align: right">
-        <a href="/productAction.html"><button class="btn btn-primary font-weight-bold py-2">Thêm sản phẩm</button></a>
-        <div class="bg-secondary rounded mb-4 w-full" style="margin-top: 7px">
-
-            <table class="table order-table text-center mb-0">
-                <tbody class="align-middle">
-                    <tr>
-                        <th>#Ngày đặt hàng - Ngày kết thúc</th>
-                        <th></th>
-                        <th></th>
-                        <th>
-                            <button class="btn btn-sm btn-danger"><i class="fas fa-pencil-ruler"></i></button>
-                            <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td class="align-middle text-left max-w-xl" style="display: flex;">
-                            <img src="../img/logo.png" alt="" class="mr-3" style="width: 7.2rem;">
-                            <a href="shop/" class="p-1 hide-content-1 m-0 text-lg font-bold">
-                                <span class="hide-content-1" style="font-size: 1.4rem;">Tên sản phẩm</span>
-                                <span class="hide-content-2 text-base font-normal">Mô tả</span>
-                                <span class="hide-content-2 text-base font-normal">Số lượng còn: 1</span>
-                            </a>
-                        </td>
-                        <td class="align-middle"></td>
-                        <td class="align-middle"></td>
-                        <td class="align-middle">Giá 233.334$</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td class="text-primary text-xl font-semibold"></td>
-                        <td>
-                            Đang trong phiên đấu giá
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="col-lg-9 col-md-8">
+  <div class="row pb-3 pr-5"  >
+    <div class="col-12 pb-1">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+          <a href="./add-shop" class="btn btn-sm btn-light bg-primary text-white">Thêm sản phẩm</a>
         </div>
+        <div class="ml-2">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-sm btn-light dropdown-toggle"
+              data-toggle="dropdown"
+            >Sắp xếp</button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Mới Nhất</a>
+              <a class="dropdown-item" href="#">Thịnh Hành</a>
+              <a class="dropdown-item" href="#">Lươt Đánh Giá</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    {{#each products}}
+    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+      <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+          <img class="img-fluid w-100" src="{{this.link}}" alt=""/>
+          <div class="product-action">
+            <a class="btn btn-outline-dark bg-important text-white" href="">Xóa</a>
+            <a class="btn btn-outline-dark bg-safe text-white" href="">Chinrh sửa</a>
+          </div>
+        </div>
+        <div class="text-center py-4">
+          <a class="h6 text-decoration-none text-truncate hide-content-1" href="">{{this.product}}</a>
+          <div class="d-flex align-items-center justify-content-center mt-2">
+            <h5>{{this.price}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+      <h5>Bạn chưa đăng sản phẩm nào</h5>
+    </div>
+    {{/each}}
+
+  </div>
 </div>
 <!-- Shop Product End -->
-<!-- Myshop End -->

@@ -88,6 +88,7 @@ class AuthController {
 
     //POST /signup
     register(req, res) {
+        
         var user = new Users(req.body)
         var isAgreeChecked = req.body.isAgreeChecked
         var reTypePassword = req.body.reTypePassword
@@ -108,14 +109,17 @@ class AuthController {
                             res.send("Email đã đăng ký tài khoản")
                         } else {
                             Users.saveBrief(user)
-                            var loginedUser = new Users({
-                                user_id: user.user_id,
-                                email: user.email,
-                                is_admin: false,
-                                name: user.name,
-                            })
-                            req.session.user = loginedUser
-                            res.send('')
+                                .then(([result])=>{
+                                    var loginedUser = new Users({
+                                        user_id: result.insertId,
+                                        email: user.email,
+                                        is_admin: false,
+                                        name: user.name,
+                                    })
+                                    req.session.user = loginedUser
+                                    res.send('')
+                                })
+                                .catch((err)=> res.send("Có lỗi đã xảy ra! Vui lòng thử lại sau"))
                         }
                     })
                     .catch(err => {
