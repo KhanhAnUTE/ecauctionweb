@@ -28,4 +28,14 @@ Products.getShopProducts = (user_id)=>{
      return db.execute(sql, [user_id])
 }
 
+Products.getProductById = (product_id)=>{
+     var sql = "select * from products where product_id = ?"
+     return db.execute(sql, [product_id])
+}
+
+Products.deteleShopProduct = (user_id, product_id)=>{
+     var sql = "delete from products where owner_id = ? and product_id = ?"
+     return db.execute(sql, [user_id, product_id])
+}
+
 module.exports = Products

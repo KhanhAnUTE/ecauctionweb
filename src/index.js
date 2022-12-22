@@ -37,6 +37,9 @@ app.engine('hbs', hbs.engine({
                 currency: 'VND',
             }).format(price);
         },
+        compare: (a, b) =>{
+            return a == b
+        }
     }
 }))
 app.set('view engine', 'hbs')

@@ -48,8 +48,11 @@
                     </div>
                     <div class="control-group mb-3">
                         <label for="gender">Giới tính</label>
-                        <input type="text" class="form-control" name="gender" placeholder="Giới tính"
-                            value="{{me.gender}}" onclick="clearMessage()"/>
+                        <select type="text" class="form-control" name="gender" placeholder="Giới tính" onclick="clearMessage()">
+                            <option value="0">--Chọn--</option>
+                            <option value="1">Nữ</option>
+                            <option value="2">Nam</option>
+                        </select>
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group mb-3">
@@ -69,3 +72,12 @@
     </div>
 </div>
 <!-- Shop Product End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event)=>{
+        var decodedJson = decodeURIComponent("{{{genderEncoded}}}");
+        var gender= JSON.parse(decodedJson);
+
+        $(`option[value="${gender.gender}"]`).attr({"selected": "selected"})
+    })
+</script>

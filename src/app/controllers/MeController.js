@@ -11,12 +11,13 @@ class MeController{
         else{
             Users.getUserById(req.session.user.user_id)
                 .then(([[userResult]]) => {
-                    res.render('me/me', {
+                    res.render('me', {
                         title: "Thông tin cá nhân",
                         me: userResult,
                         info: true,
                         user: req.session.user,
                         mePage: true,
+                        genderEncoded: encodeURIComponent(JSON.stringify({gender: userResult.gender}))
                     })
                 })
                 .catch(err => res.send(err))
@@ -67,13 +68,9 @@ class MeController{
             res.redirect('../auth/login')
         else{
             var user_id = req.session.user.user_id
-            // Users.getUserById(user_id)
-            //     .then(([[userResult]]) => {
-            //         res.send(userResult)
-            //     })
             Promise.all([Products.getShopProducts(user_id), Users.getUserById(user_id)])
                 .then(([products , me])=>{
-                    res.render('me/me', {
+                    res.render('me', {
                         title: "Cửa hàng của tôi",
                         myshop: true,
                         products: products[0],
@@ -93,7 +90,7 @@ class MeController{
             Sites.getParentCategories()
                 .then(([parent_categories]) => {
 
-                    res.render('me/me', {
+                    res.render('me', {
                         title: "Đăng sản phẩm",
                         addShop: true,
                         parent_categories,
@@ -135,6 +132,58 @@ class MeController{
                     res.send(categories)
                 })
                 .catch(err => res.status(400).send(err))
+    }
+
+    //GET me/edit-shop
+    editShop(req, res){
+        if (!req.session.user)
+            res.redirect('../auth/login')
+        else{
+            var user_id = req.session.user.user_id
+            var product_id = req.query.product_id
+            if (!product_id)
+                res.send("Có lỗi xảy ra")
+            else{
+                // res.send("Thanh cong")
+                Promise.all([Users.getUserById(user_id), Products.getProductById(product_id), Sites.getParentCategories(), Sites.getImagesByProductId(product_id), Sites.getParentCategoriesByProduct(product_id)])
+                    .then(([me, product, parent_categories, images, parent_id])=>{
+                        res.render("me", {
+                            title: "Thông tin sản phẩm",
+                            editShop: true,
+                            mePage: true,
+                            user: req.session.user,
+                            me: me[0][0],
+                            product: product[0][0],
+                            parent_categories: parent_categories[0],
+                            images: images[0],
+                            imgs: [0, 1, 2, 3, 4],
+                            imagesCount: images[0].length,
+                            parent_id: encodeURIComponent(JSON.stringify(parent_id[0][0])),
+                        })
+                    })
+            }
+
+        }
+    }
+
+    //GET me/delete-shop
+    deleteShop(req, res){
+        if (!req.session.user)
+        res.redirect('../auth/login')
+        else{
+            var product_id = req.query.product_id
+            var user_id = req.session.user.user_id
+
+            if (!product_id)
+            res.redirect('back')
+            else{
+                Promise.all([Sites.deleteImagesByProductId(product_id), Products.deteleShopProduct(user_id, product_id)])
+                    .then(([result])=>{
+                        res.redirect("back")
+                    })
+                    .catch(err => res.send(err))
+            }
+        }
     }
 }
 
