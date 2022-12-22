@@ -30,6 +30,14 @@ app.use(cookieParser())
 //template engine
 app.engine('hbs', hbs.engine({
     extname: ".hbs",
+    helpers: {
+        currencyFormat: (price) =>{
+            return new Intl.NumberFormat('vi-VI', {
+                style: 'currency',
+                currency: 'VND',
+            }).format(price);
+        },
+    }
 }))
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
