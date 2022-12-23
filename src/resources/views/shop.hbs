@@ -52,7 +52,7 @@
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="{{this.link}}" alt="" />
                                 <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="./cart.html" ><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" {{#if this.is_own}}href="" {{else}} href="cart/add-cart?product_id={{this.product_id}}"{{/if}} ><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href="shop/detail?product_id={{this.product_id}}" ><i class="fa fa-search"></i></a>
                                 </div>
                             </div>

@@ -1,7 +1,0 @@
-lỗi 1
-TypeError: Bind parameters must not contain undefined. To pass SQL NULL specify JS null khi insert các giá trị optional, do sql không chấp nhận null của js
-var sql = "update Users set is_admin = ?, name = ?, gender = ?, phone_number = ?, email = ?, password = ?, avatar = ?, city = ?, district = ?, ward = ?, street = ? where user_id = ?"
-
-do truy cập user_id sai nên dẫn tới bị null
-user.user_id = req.session.user_id
-user.user_id = req.session.user.user_id

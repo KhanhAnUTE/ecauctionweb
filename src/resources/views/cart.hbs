@@ -1,0 +1,48 @@
+<!-- Cart Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class=" table-responsive mb-5">
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Xóa</th>
+                            <th>Đấu giá</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                         {{#each carts}}
+                        <tr>
+                            <td class="row" style="text-align: left;">
+                              <img src="{{this.link}}" alt="" style="width: 75px; margin-right: 10px">
+                              <div class="">
+                                   <a class="hide-content-1" style="display: block; font-size: 20px" href="../shop/detail?product_id={{this.product_id}}">
+                                   {{this.product}}
+                                   </a>
+                                   <a href="../shop/detail?product_id={{this.product_id}}" class="hide-content-1">
+                                   {{this.description}}
+                                   </a>
+                              </div>
+                              </td>
+                            <td class="align-middle">NaN đ</td>
+                            <td class="align-middle">
+                                {{this.quantity}}
+                            </td>
+                            <td class="align-middle"><a class="btn btn-sm btn-danger" href="./delete-cart?cart_id={{this.cart_id}}"><i class="fa fa-times"></i></a></td>
+                            <td class="align-middle"><button class="btn btn-sm btn-danger">Tham gia ngay</button></td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                         <td colspan="4">Không có sản phẩm trong giỏ hàng</td>
+                        </tr>
+                        {{/each}}
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    <!-- Cart End -->
